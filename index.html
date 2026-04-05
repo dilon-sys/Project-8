@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Makanaka 💖</title>
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  color:white;
+  text-align:center;
+  background:black;
+  overflow:hidden;
+}
+.hidden { display:none; }
+#startScreen {
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:50px;
+  z-index:10;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse {0%,100% {opacity:1;} 50% {opacity:0.6;}}
+.glow { text-shadow:0 0 25px #fff,0 0 50px #ff8;}
+.container,.section {padding:35px;}
+.btn {
+  display:block;
+  margin:22px auto;
+  padding:18px;
+  background:rgba(255,255,255,0.1);
+  border:none;
+  border-radius:18px;
+  color:white;
+  width:88%;
+  font-size:24px;
+  cursor:pointer;
+}
+.particle {
+  position:fixed;
+  font-size:70px;
+  animation:float 3s forwards;
+  z-index:5;
+}
+@keyframes float {
+  to {transform:translateY(-110vh) scale(3); opacity:0;}
+}
+.stars {
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url('https://www.transparenttextures.com/patterns/stardust.png');
+  animation:move 60s linear infinite;
+  z-index:-1;
+}
+@keyframes move {from {background-position:0 0;} to {background-position:3000px 3000px;}}
+.gif-scene {max-width:95%; margin:30px auto; border-radius:12px; display:block;}
+p { font-size:30px; line-height:1.8; margin:25px auto; max-width:900px; }
+.back {cursor:pointer; margin-top:28px; font-size:22px; text-decoration:underline; color:#ffb6c1;}
+</style>
+</head>
+<body>
+
+<div id="startScreen" onclick="startSite()">
+  <h1>Tap to open 💖</h1>
+</div>
+
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed/nsdQu4-KYyo?enablejsapi=1&loop=1&playlist=nsdQu4-KYyo"
+frameborder="0"></iframe>
+
+<div class="stars"></div>
+
+<div id="home" class="container hidden">
+<h1 class="glow">Hey Makanaka 💖</h1>
+<p id="intro"></p>
+<img class="gif-scene" src="https://i.gifer.com/7Y4g.gif" alt="Romantic couple holding hands and walking">
+<button class="btn" onclick="show('safe')">My Safe Space</button>
+<button class="btn" onclick="show('universe')">In Every Universe</button>
+<button class="btn" onclick="show('talk')">Hear From Me</button>
+<button class="btn" onclick="unlockVault()">Hidden Section 🔐</button>
+</div>
+
+<div id="safe" class="section hidden">
+<h2>My Safe Space</h2>
+<p id="safeText"></p>
+<img class="gif-scene" src="https://i.gifer.com/3o6M.gif" alt="Romantic couple hugging">
+<div class="back" onclick="show('home')">← back</div>
+</div>
+
+<div id="universe" class="section hidden">
+<h2>In Every Universe</h2>
+<p id="uniText"></p>
+<img class="gif-scene" src="https://i.gifer.com/ZUyM.gif" alt="Boy surprising girl with flowers">
+<div class="back" onclick="show('home')">← back</div>
+</div>
+
+<div id="talk" class="section hidden">
+<h2>If You Ever Want to Hear From Me</h2>
+<div id="chat"></div>
+<div class="back" onclick="show('home')">← back</div>
+</div>
+
+<div id="vault" class="section hidden">
+<h2>When You Open This…</h2>
+<p id="vaultText"></p>
+<div class="back" onclick="show('home')">← back</div>
+</div>
+
+<script>
+// 🌹 Start Site
+function startSite(){
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("home").classList.remove("hidden");
+
+  let iframe = document.getElementById("music");
+  iframe.src += "&autoplay=1";
+
+  typeText("intro",
+  "Makanaka… my love… I know I made mistakes. I know some of my words hurt you. You deserve so much more than pain — you deserve warmth, comfort, loyalty, and love that builds you up. You’re the one I breathed life into, the one I wanted to protect.");
+
+  typeText("safeText",
+  "My heart is your safe space. I know I haven’t always shown it the right way, but I want you to feel peace when you think of us. I want your heart to rest. I want you to smile without fear. You matter more than I’ve ever said.");
+
+  typeText("uniText",
+  "In every version of life, in every possible world, if I could choose you again, I would. You’re my heartbeat, my warmth, my forever — and nothing could ever change that.");
+}
+
+// 💬 Typing effect
+function typeText(id,text){
+  let el=document.getElementById(id);
+  el.innerHTML="";
+  let i=0;
+  function typing(){ if(i<text.length){
+      el.innerHTML+=text.charAt(i);
+      i++;
+      setTimeout(typing,32);
+    }
+  }
+  typing();
+}
+
+// 🔁 Show sections
+function show(section){
+  document.querySelectorAll('.container,.section').forEach(el=>el.classList.add("hidden"));
+  document.getElementById(section).classList.remove("hidden");
+
+  if(section==="vault"){
+    document.getElementById("vaultText").innerText =
+    "Makanaka… I know I’ve said a lot of hurtful stuff. I can’t take back the pain, and I know I’ve promised to love and trust you — but I made you feel as if that wasn’t something I could truly do. So I won’t keep making promises I can’t live up to. Instead, I promise to *grow with you*, to *listen before I speak*, and to *adapt to your heart*. Because if it’s not you, I would rather be alone. You are the one whose laughter my soul chases. You are the one I think of before sleep and after waking. You taught me what love truly feels like — not just in words, but in wanting better for someone every day. Even when I falter, my heart still belongs to you… and if I’m worthy of your presence again, I’ll be the man who shows up, every day, for you and for us.";
+    explodeParticles();
+  }
+
+  if(section==="talk"){
+    let chat = document.getElementById("chat");
+    chat.innerHTML="";
+    setTimeout(()=>chat.innerHTML+="<p><b>Her:</b> I feel overwhelmed, my love…</p>",1000);
+    setTimeout(()=>chat.innerHTML+="<p><b>Me:</b> I understand, Makanaka… I didn’t listen the way I should have. I’m truly sorry.</p>",2500);
+    setTimeout(()=>chat.innerHTML+="<p><b>Her:</b> I need space…</p>",4500);
+    setTimeout(()=>chat.innerHTML+="<p><b>Me:</b> Take all the space you need. I’ll be right here learning and growing, always respecting you.</p>",6500);
+    setTimeout(()=>chat.innerHTML+="<p><b>Her:</b> I miss you sometimes…</p>",8500);
+    setTimeout(()=>chat.innerHTML+="<p class='glow'><b>Me:</b> Makanaka, I miss you more than words can hold. You’re my warmth, my calm, my heart’s home.</p>",10500);
+    setTimeout(()=>chat.innerHTML+="<p><b>Me:</b> You deserve someone who sees your worth — and I’m becoming that man.</p>",12500);
+  }
+}
+
+// 🌸 Explode Particles
+function explodeParticles(){
+  let icons=["💖","🌸","🌼","💮","💕"];
+  for(let i=0;i<100;i++){
+    let p=document.createElement("div");
+    p.className="particle";
+    p.innerText=icons[Math.floor(Math.random()*icons.length)];
+    p.style.left=Math.random()*100+"vw";
+    p.style.top="90vh";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),4500);
+  }
+}
+
+// ❤️ Click hearts everywhere
+document.addEventListener("click",()=>{
+  let heart=document.createElement("div");
+  heart.className="particle";
+  heart.innerText="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.top="90vh";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),3500);
+});
+
+// 🔐 Vault Password
+function unlockVault(){
+  let pass = prompt("Enter password:");
+  if(pass==="tamakar08") show("vault");
+  else alert("Wrong password");
+}
+</script>
+</body>
+</html>
